@@ -26,7 +26,7 @@ proxy-providers:
 
 # 全局配置
 mixed-port: 7890 
-ipv6: false
+ipv6: true
 allow-lan: true
 unified-delay: true
 tcp-concurrent: true
@@ -35,20 +35,24 @@ find-process-mode: strict
 profile:
   store-selected: true
   store-fake-ip: true
-sniffer:                     # 【优化】Fake-IP 模式防泄露和提速的核心
+sniffer:
   enable: true
-  parse-pure-ip: true        # 允许纯 IP 嗅探
+  parse-pure-ip: true
+  force-domain:
+    - +.v2ex.com
   sniff:
     TLS:
       ports: [443, 8443]
     HTTP:
       ports: [80, 8080-8880]
-      override-destination: true # 覆盖真实目标域名，确保命中路由规则
+      override-destination: true
+    QUIC:
+      ports: [443]    
 dns:
   enable: true
   listen: 127.0.0.1:1053
   cache-algorithm: arc
-  ipv6: false
+  ipv6: true
   prefer-h3: false 
   use-hosts: true 
   use-system-hosts: false 
@@ -69,11 +73,9 @@ dns:
     - +.stun.*.* 
   default-nameserver:
     - 223.5.5.5
-    
-    
-  # 代理服务器域名的解析，必须走国内 DNS 确保能连上节点
+# 代理服务器域名的解析，必须走国内 DNS 确保能连上节点
   proxy-server-nameserver:
-    - 223.5.5.5
+    - https://dns.alidns.com/dns-query
 
   nameserver:
     - https://dns.alidns.com/dns-query
@@ -85,6 +87,7 @@ dns:
       - "https://cloudflare-dns.com/dns-query#🚀 节点选择"
     "geosite:cn":
       - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
 
   fallback:
     - "https://dns.google/dns-query#🚀 节点选择"
@@ -118,40 +121,47 @@ proxy-groups:
   - {name: 🇸🇬 狮城节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(新|🇸🇬|SG|Singapore)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Singapore.png"}
   - {name: 🇯🇵 日本节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(日本|🇯🇵|JP|Japan)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Japan.png"}
   - {name: 🇹🇼 台湾节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(台|🇹🇼|TW|Taiwan)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Taiwan_China.png"}
-  - {name: 🇺🇲 美国节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(美|🇺🇲|🇺🇸|US|America|United States)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/America.png"}
+  - {name: 🇺🇲 美国节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(美国|美|🇺🇲|🇺🇸|US|America|United States)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/America.png"}
   - {name: 🇰🇷 韩国节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(KR|Korea|KOR|首尔|韩)"}
   - {name: 🇲🇾 亚洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(马来|泰国|菲律宾|印度尼西亚|VN)"}
   - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
-  # 🔴 广告拦截
+  # 🔴 1. 广告拦截 (最高优先级，遇到垃圾直接干掉)
   - RULE-SET,banAd_domain,🛑 广告拦截
   - RULE-SET,banAd2_domain,🛑 广告拦截
   
-  # 🟡 域名规则
+  # 🟡 2. 局域网与私有网络 (防止内网 IP 和域名发生 DNS 泄露)
   - RULE-SET,private_domain,🎯 全球直连
-  - RULE-SET,speedtest_domain,🚀 节点选择
-  - RULE-SET,Cloudflare_domain,☁️ CloudFlareCDN
-  - RULE-SET,proxy_domain,🚀 节点选择
+
+  # 🟢 3. 国内特色服务特判 (极其重要：国内直连特例，必须在广义规则之前！)
+  - RULE-SET,ai_cn_domain,🎯 全球直连      # 移到了这里，保证国内 AI 绝对直连
+  - RULE-SET,steamcdn_domain,🎯 全球直连    # 保证 Steam 下载走国内 CDN
+  - RULE-SET,microsoft_cn_domain,🎯 全球直连 # 保证微软国内服务不绕路
+  - RULE-SET,games_cn_domain,🎯 全球直连
+
+  # 🔵 4. 具体应用/网站分流 (明确需要代理或特殊处理的服务)
   - RULE-SET,ai_domain,💬 Ai平台
-  - RULE-SET,ai_cn_domain,🎯 全球直连
   - RULE-SET,youtube_domain,📹 油管视频
   - RULE-SET,github_domain,🚀 节点选择
-  - RULE-SET,cn_domain,🎯 全球直连
-  - RULE-SET,gfw_domain,🚀 节点选择
-  - RULE-SET,games_cn_domain,🎯 全球直连
-  - RULE-SET,steamcdn_domain,🎯 全球直连
-  - RULE-SET,microsoft_cn_domain,🎯 全球直连
   - RULE-SET,steam_domain,STEAM
+  - RULE-SET,speedtest_domain,🚀 节点选择
+  - RULE-SET,Cloudflare_domain,☁️ CloudFlareCDN
+
+  # 🟣 5. 大范围通用域名分流 (CN 必须在前，Proxy 和 GFW 在后，防止误判)
+  - RULE-SET,cn_domain,🎯 全球直连
+  - RULE-SET,proxy_domain,🚀 节点选择
+  - RULE-SET,gfw_domain,🚀 节点选择
   - RULE-SET,tld_proxy,🚀 节点选择
   
-  # 🟢 IP 规则（全部加 no-resolve）
+  # 🟤 6. IP 规则（全部带 no-resolve，必须放在所有域名规则之后）
+  # 这样做的目的是：如果前面的域名规则都没命中，才进行一次 DNS 解析来获取 IP，然后匹配这里的 IP 规则，大幅节省解析开销。
   - RULE-SET,telegram_ip,📲 电报消息,no-resolve
   - RULE-SET,twitter_ip,🐦 推特分流,no-resolve
-  - RULE-SET,cn_ip,🎯 全球直连,no-resolve
   - RULE-SET,private_ip,🎯 全球直连,no-resolve
+  - RULE-SET,cn_ip,🎯 全球直连,no-resolve
   - RULE-SET,steamcdn_ip,🎯 全球直连,no-resolve
   
-  # 🔵 兜底
+  # ⚫ 7. 兜底与 Geo 数据 (作为 Rule-Set 未命中的最后补充)
   - GEOSITE,private,🎯 全球直连
   - GEOSITE,steam,🚀 节点选择
   - GEOSITE,google-cn,🎯 全球直连
@@ -163,7 +173,7 @@ rules:
   - GEOIP,google,🚀 节点选择,no-resolve
   - MATCH,🐟 漏网之鱼
 
-# 规则集定义 (引用 lanlan123.yaml 来源)
+# 规则集定义
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
@@ -192,6 +202,7 @@ rule-providers:
   private_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.mrs" }
   microsoft_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/microsoft-cn.mrs" }
   tld_proxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
+
 
 
 
