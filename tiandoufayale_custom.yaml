@@ -26,7 +26,7 @@ proxy-providers:
 
 # 全局配置
 mixed-port: 7890 
-ipv6: true
+ipv6: false
 allow-lan: true
 unified-delay: true
 tcp-concurrent: true
@@ -34,12 +34,21 @@ inbound-tfo: true
 find-process-mode: strict
 profile:
   store-selected: true
-  store-fake-ip: true                
+  store-fake-ip: true
+sniffer:                     # 【优化】Fake-IP 模式防泄露和提速的核心
+  enable: true
+  parse-pure-ip: true        # 允许纯 IP 嗅探
+  sniff:
+    TLS:
+      ports: [443, 8443]
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true # 覆盖真实目标域名，确保命中路由规则
 dns:
   enable: true
   listen: 127.0.0.1:1053
   cache-algorithm: arc
-  ipv6: true
+  ipv6: false
   prefer-h3: false 
   use-hosts: true 
   use-system-hosts: false 
@@ -72,14 +81,14 @@ dns:
          
   nameserver-policy:
     "geosite:geolocation-!cn":
-    - https://dns.google/dns-query
-    - https://cloudflare-dns.com/dns-query
+      - "https://dns.google/dns-query#🚀 节点选择"
+      - "https://cloudflare-dns.com/dns-query#🚀 节点选择"
     "geosite:cn":
-    - https://dns.alidns.com/dns-query
+      - https://dns.alidns.com/dns-query
 
   fallback:
-    - https://dns.google/dns-query
-    - https://cloudflare-dns.com/dns-query
+    - "https://dns.google/dns-query#🚀 节点选择"
+    - "https://cloudflare-dns.com/dns-query#🚀 节点选择"
   fallback-filter:
     geoip: true
     geoip-code: CN
@@ -183,6 +192,7 @@ rule-providers:
   private_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.mrs" }
   microsoft_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/microsoft-cn.mrs" }
   tld_proxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
+
 
 
 
