@@ -104,14 +104,14 @@ proxy-groups:
   - {name: 🚀 手动切换, type: select, include-all: true}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, interval: 300, tolerance: 50}
   - {name: 🔯 故障转移, type: fallback, include-all: true, interval: 300}
-  - {name: 🇭🇰 香港节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(港|HK|hk|Hong Kong|🇭🇰)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Hongkong.png"}
-  - {name: 🇸🇬 狮城节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(新|🇸🇬|SG|Singapore)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Singapore.png"}
-  - {name: 🇯🇵 日本节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(日本|🇯🇵|JP|Japan)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Japan.png"}
-  - {name: 🇹🇼 台湾节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(台|🇹🇼|TW|Taiwan)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Taiwan_China.png"}
-  - {name: 🇺🇲 美国节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(美国|美|🇺🇲|🇺🇸|US|America|United States)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/America.png"}
-  - {name: 🇰🇷 韩国节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(KR|Korea|KOR|首尔|韩)"}
-  - {name: 🇲🇾 亚洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(马来|泰国|菲律宾|印度尼西亚|VN)"}
-  - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
+  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)(港|HK|hk|Hong Kong|🇭🇰)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Hongkong.png"}
+  - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)(新|🇸🇬|SG|Singapore)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Singapore.png"}
+  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)(日本|🇯🇵|JP|Japan)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Japan.png"}
+  - {name: 🇹🇼 台湾节点, type: select, include-all: true, filter: "(?i)(台|🇹🇼|TW|Taiwan)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/Taiwan_China.png"}
+  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)(美国|美|🇺🇲|🇺🇸|US|America|United States)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/America.png"}
+  - {name: 🇰🇷 韩国节点, type: select, include-all: true, filter: "(?i)(KR|Korea|KOR|首尔|韩)"}
+  - {name: 🇲🇾 亚洲节点, type: select, include-all: true, filter: "(?i)(马来|泰国|菲律宾|印度尼西亚|VN)"}
+  - {name: 🇪🇺 欧洲节点, type: select, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
   # 🔴 1. 广告拦截 (最高优先级，遇到垃圾直接干掉)
   - RULE-SET,banAd_domain,🛑 广告拦截
@@ -121,7 +121,6 @@ rules:
   - RULE-SET,private_domain,🎯 全球直连
 
   # 🟢 3. 国内特色服务特判 (极其重要：国内直连特例，必须在广义规则之前！)
-  - RULE-SET,ai_cn_domain,🎯 全球直连      # 移到了这里，保证国内 AI 绝对直连
   - RULE-SET,steamcdn_domain,🎯 全球直连    # 保证 Steam 下载走国内 CDN
   - RULE-SET,microsoft_cn_domain,🎯 全球直连 # 保证微软国内服务不绕路
   - RULE-SET,games_cn_domain,🎯 全球直连
@@ -130,9 +129,11 @@ rules:
   - RULE-SET,ai_domain,💬 Ai平台
   - RULE-SET,youtube_domain,📹 油管视频
   - RULE-SET,github_domain,🚀 节点选择
+  - RULE-SET,google,🚀 节点选择
   - RULE-SET,steam_domain,STEAM
-  - RULE-SET,speedtest_domain,🚀 节点选择
   - RULE-SET,Cloudflare_domain,☁️ CloudFlareCDN
+  - DOMAIN-SUFFIX,services.googleapis.cn,🚀 节点选择
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
 
   # 🟣 5. 大范围通用域名分流 (CN 必须在前，Proxy 和 GFW 在后，防止误判)
   - RULE-SET,cn_domain,🎯 全球直连
@@ -151,7 +152,6 @@ rules:
   # ⚫ 7. 兜底与 Geo 数据 (作为 Rule-Set 未命中的最后补充)
   - GEOSITE,private,🎯 全球直连
   - GEOSITE,steam,🚀 节点选择
-  - GEOSITE,google-cn,🎯 全球直连
   - GEOSITE,CN,🎯 全球直连
   - GEOIP,CN,🎯 全球直连,no-resolve
   - GEOIP,private,🎯 全球直连,no-resolve
@@ -169,7 +169,6 @@ rule-providers:
   banAd_domain: { <<: *domain, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
   banAd2_domain: { <<: *domain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs" }
   fakeip_filter_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.mrs" }
-  speedtest_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs" }
   Cloudflare_domain: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs" }
   proxy_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/proxy.mrs" }
   ai_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs" }
@@ -185,10 +184,11 @@ rule-providers:
   steamcdn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/Steam-domain.mrs" }
   steamcdn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/steamCDN-ip.mrs" }
   steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs" }
-  ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   private_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.mrs" }
   microsoft_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/microsoft-cn.mrs" }
   tld_proxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
+  google: { <<: *ip, url: "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/mrs/google.mrs" }
+
 
 
 
