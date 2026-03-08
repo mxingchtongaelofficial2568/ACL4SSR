@@ -26,7 +26,7 @@ proxy-providers:
 
 # 全局配置
 mixed-port: 7890 
-ipv6: true
+ipv6: false
 allow-lan: true
 unified-delay: true
 tcp-concurrent: true
@@ -46,7 +46,7 @@ dns:
   enable: true
   listen: 127.0.0.1:1053
   cache-algorithm: arc
-  ipv6: true
+  ipv6: false
   prefer-h3: false 
   respect-rules: true
   use-hosts: true 
@@ -153,7 +153,6 @@ rule-anchor:
 
 rule-providers:
   banAd_domain: { <<: *domain, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
-  fakeip_filter_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.mrs" }
   Cloudflare_domain: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs" }
   proxy_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/proxy.mrs" }
   ai_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs" }
@@ -178,7 +177,7 @@ rule-providers:
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   direct_domain: { <<: *domain, url: "https://cdn.gh-proxy.org/https://raw.githubusercontent.com/echs-top/proxy/main/rules/mrs/direct_domain.mrs" }
-  google-cn: { <<: *domain, url: "https://cdn.gh-proxy.org/https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/google-cn.mrs"}
+
 
 
 
