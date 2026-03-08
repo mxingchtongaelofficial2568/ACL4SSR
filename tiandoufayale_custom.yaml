@@ -133,6 +133,7 @@ rules:
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
   # 🟣 5. 大范围通用域名分流 (CN 必须在前，Proxy 和 GFW 在后，防止误判)
   - RULE-SET,cn_domain,🎯 全球直连
+  - RULE-SET,direct_domain,🎯 全球直连
   - RULE-SET,proxy_domain,🚀 节点选择
   - RULE-SET,gfw_domain,🚀 节点选择
   - RULE-SET,tld_proxy,🚀 节点选择
@@ -189,6 +190,7 @@ rule-providers:
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   direct_domain: { <<: *domain, url: "https://cdn.gh-proxy.org/https://raw.githubusercontent.com/echs-top/proxy/main/rules/mrs/direct_domain.mrs" }
   google-cn: { <<: *domain, url: "https://cdn.gh-proxy.org/https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/google-cn.mrs"}
+
 
 
 
