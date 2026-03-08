@@ -61,8 +61,8 @@ dns:
   enhanced-mode: fake-ip  
   fake-ip-range: 198.18.0.1/16
   fake-ip-range6: fdfe:dcba:9876::1/64
-fake-ip-filter-mode: rule
-fake-ip-filter:
+  fake-ip-filter-mode: rule
+  fake-ip-filter:
     - RULE-SET,banAd_domain,fake-ip
     - RULE-SET,private_domain,real-ip
     - RULE-SET,ai_domain,fake-ip
@@ -186,6 +186,7 @@ rule-providers:
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   direct_domain: { <<: *domain, url: "https://cdn.gh-proxy.org/https://raw.githubusercontent.com/echs-top/proxy/main/rules/mrs/direct_domain.mrs" }
   google-cn: { <<: *domain, url: "https://cdn.gh-proxy.org/https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/google-cn.mrs"}
+
 
 
 
