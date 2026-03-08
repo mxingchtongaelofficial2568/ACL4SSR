@@ -1,9 +1,9 @@
 # tiandoufayale's Clash Configuration Template
 # Use this link in your Subconverter 'Remote Config'
 
-Proxy_first: &Proxy_first {type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, ♻️ 自动选择, 🔯 故障转移, 🎯 全球直连]}
+Proxy_first: &Proxy_first {type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, ♻️ 自动选择, 🎯 全球直连]}
 Direct_first: &Direct_first {type: select, proxies: [🎯 全球直连, ♻️ 自动选择]}
-Include_all: &Include_all {type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, ♻️ 自动选择, 🔯 故障转移, 🎯 全球直连], include-all: true, exclude-filter: "(?i)(DIRECT|直连)"}
+Include_all: &Include_all {type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, ♻️ 自动选择, 🎯 全球直连], include-all: true, exclude-filter: "(?i)(DIRECT|直连)"}
 Urltest_Base: &Urltest_Base {
   type: url-test, 
   include-all: true, 
@@ -74,7 +74,7 @@ dns:
       - https://doh.pub/dns-query
 # 策略组
 proxy-groups:
-  - {name: 🚀 节点选择, type: select,no-resolve: true,proxies: [♻️ 自动选择, 🔯 故障转移, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/select.png"}
+  - {name: 🚀 节点选择, type: select,no-resolve: true,proxies: [♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/select.png"}
   - {name: 📲 电报消息, <<: *Proxy_first, icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/telegram.png"}
   - {name: 💬 Ai平台, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/ai.png"}
   - {name: Google, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换]}
@@ -171,6 +171,7 @@ rule-providers:
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   direct_domain: { <<: *domain, url: "https://cdn.gh-proxy.org/https://raw.githubusercontent.com/echs-top/proxy/main/rules/mrs/direct_domain.mrs" }
   google-cn: { <<: *domain, url: "https://cdn.gh-proxy.org/https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/google-cn.mrs"}
+
 
 
 
