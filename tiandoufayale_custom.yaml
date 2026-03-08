@@ -96,7 +96,6 @@ proxy-groups:
   - {name: 📲 电报消息, <<: *Proxy_first, icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/telegram.png"}
   - {name: 💬 Ai平台, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/ai.png"}
   - {name: 🎯 全球直连, type: select, proxies: [DIRECT, ♻️ 自动选择], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/direct.png"}
-  - {name: 🛑 广告拦截, type: select, proxies: [REJECT, DIRECT], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/block.png"}
   - {name: 🐟 漏网之鱼, <<: *Proxy_first, icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/final.png"}
   - {name: 🚀 手动切换, type: select, include-all: true}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, interval: 300, tolerance: 50}
@@ -108,10 +107,6 @@ proxy-groups:
   - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
   - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT 
-  # 🔴 1. 广告拦截 (最高优先级，遇到垃圾直接干掉)
-  - RULE-SET,banAd_domain,🛑 广告拦截
-  - RULE-SET,banAd2_domain,🛑 广告拦截
-  
   # 🟡 2. 局域网与私有网络 (防止内网 IP 和域名发生 DNS 泄露)
   - RULE-SET,private_domain,🎯 全球直连
 
@@ -133,8 +128,6 @@ rules:
   - RULE-SET,Cloudflare_domain,🚀 节点选择
   - DOMAIN-SUFFIX,services.googleapis.cn,🚀 节点选择
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
-  
-
   # 🟣 5. 大范围通用域名分流 (CN 必须在前，Proxy 和 GFW 在后，防止误判)
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,proxy_domain,🚀 节点选择
@@ -166,8 +159,6 @@ rule-anchor:
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
 
 rule-providers:
-  banAd_domain: { <<: *domain, url: "https://github.com/HenryChiao/MIHOMO_YAMLS/raw/refs/heads/ruleset/stash/domain/adrules.mrs" }
-  banAd2_domain: { <<: *domain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs" }
   fakeip_filter_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.mrs" }
   Cloudflare_domain: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs" }
   proxy_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/proxy.mrs" }
@@ -192,56 +183,5 @@ rule-providers:
   socialmedia-cn: { <<: *domain, url: "https://github.com/HenryChiao/MIHOMO_YAMLS/raw/refs/heads/ruleset/meta/domain/socialmedia-cn.mrs" }
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
