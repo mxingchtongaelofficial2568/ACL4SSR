@@ -98,6 +98,9 @@ rules:
   - RULE-SET,games_cn_domain,🎯 全球直连
   - RULE-SET,socialmedia-cn,🎯 全球直连
   - RULE-SET,ai_cn_domain,🎯 全球直连
+  - DOMAIN-SUFFIX,googleapis.cn,🚀 节点选择
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
+  - DOMAIN-SUFFIX,xn--ngstr-cn-8za9o.com,🚀 节点选择
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,direct_domain,🎯 全球直连
   # 🔵 4. 具体应用/网站分流 (明确需要代理或特殊处理的服务)
@@ -156,6 +159,7 @@ rule-providers:
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
   direct_domain: { <<: *domain, url: "https://cdn.gh-proxy.org/https://raw.githubusercontent.com/echs-top/proxy/main/rules/mrs/direct_domain.mrs" }
+
 
 
 
