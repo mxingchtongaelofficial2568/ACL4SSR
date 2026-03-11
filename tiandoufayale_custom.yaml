@@ -29,8 +29,6 @@ mixed-port: 7890
 ipv6: true
 allow-lan: true
 unified-delay: true
-tcp-concurrent: true
-find-process-mode: strict
 profile:
   store-selected: true
   store-fake-ip: true
@@ -96,36 +94,17 @@ rules:
   - RULE-SET,steamcdn_domain,🎯 全球直连    # 保证 Steam 下载走国内 CDN
   - RULE-SET,microsoft_cn_domain,🎯 全球直连 # 保证微软国内服务不绕路
   - RULE-SET,games_cn_domain,🎯 全球直连
-  - RULE-SET,socialmedia-cn,🎯 全球直连
   - RULE-SET,ai_cn_domain,🎯 全球直连
-  - DOMAIN-SUFFIX,googleapis.cn,🚀 节点选择
-  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
-  - DOMAIN-SUFFIX,xn--ngstr-cn-8za9o.com,🚀 节点选择
   - RULE-SET,cn_domain,🎯 全球直连
-  - RULE-SET,direct_domain,🎯 全球直连
+  - RULE-SET,google,Google,no-resolve
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT 
   # 🔵 4. 具体应用/网站分流 (明确需要代理或特殊处理的服务)
   - RULE-SET,ai_domain,💬 Ai平台
   - RULE-SET,openai_domain,💬 Ai平台
   - RULE-SET,youtube_domain,🚀 节点选择
-  - RULE-SET,github_domain,🚀 节点选择
   - RULE-SET,telegram_domain,🚀 节点选择
-  - RULE-SET,google,Google
-  - RULE-SET,steam_domain,🚀 节点选择
-  - RULE-SET,Cloudflare_domain,🚀 节点选择
-  - DOMAIN-SUFFIX,services.googleapis.cn,🚀 节点选择
-  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,🚀 节点选择
+  - RULE-SET,Cloudflare_domain,🚀 节点选择,no-resolve
   # 🟣 5. 大范围通用域名分流 (CN 必须在前，Proxy 和 GFW 在后，防止误判)
-  - RULE-SET,proxy_domain,🚀 节点选择
-  - RULE-SET,gfw_domain,🚀 节点选择
-  - RULE-SET,tld_proxy,🚀 节点选择
-  
-  # 🟤 6. IP 规则（全部带 no-resolve，必须放在所有域名规则之后）
-  # 这样做的目的是：如果前面的域名规则都没命中，才进行一次 DNS 解析来获取 IP，然后匹配这里的 IP 规则，大幅节省解析开销。
-  - RULE-SET,telegram_ip,📲 电报消息,no-resolve
-  - RULE-SET,twitter_ip,🚀 节点选择,no-resolve
-  - RULE-SET,private_ip,🎯 全球直连,no-resolve
-  - RULE-SET,cn_ip,🎯 全球直连,no-resolve
-  - RULE-SET,steamcdn_ip,🎯 全球直连,no-resolve
   - MATCH,🐟 漏网之鱼
 
 # 规则集定义
@@ -136,29 +115,20 @@ rule-anchor:
 rule-providers:
   fakeip_filter_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.mrs" }
   Cloudflare_domain: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs" }
-  proxy_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/proxy.mrs" }
   ai_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs" }
   youtube_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/youtube.mrs" }
-  github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs" }
   cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cn.mrs" }
   gfw_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/gfw.mrs" }
   telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs" }
-  telegram_ip: { <<: *ip, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/telegramip.mrs" }
-  twitter_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/twitter.mrs" }
-  cn_ip: { <<: *ip, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cnip.mrs" }
-  private_ip: { <<: *ip, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/privateip.mrs" }
   games_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.mrs" }
   steamcdn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/Steam-domain.mrs" }
-  steamcdn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/steamCDN-ip.mrs" }
   steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs" }
   private_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.mrs" }
   microsoft_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/microsoft-cn.mrs" }
-  tld_proxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
   google: { <<: *ip, url: "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/mrs/google.mrs" }
-  socialmedia-cn: { <<: *domain, url: "https://github.com/HenryChiao/MIHOMO_YAMLS/raw/refs/heads/ruleset/meta/domain/socialmedia-cn.mrs" }
   ai_cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/category-ai-cn.mrs" }
   openai_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/openai.mrs" }
-  direct_domain: { <<: *domain, url: "https://cdn.gh-proxy.org/https://raw.githubusercontent.com/echs-top/proxy/main/rules/mrs/direct_domain.mrs" }
+
 
 
 
