@@ -60,17 +60,18 @@ dns:
     - 119.29.29.29
 # 代理服务器域名的解析，必须走国内 DNS 确保能连上节点
   proxy-server-nameserver:
-    - https://dns.alidns.com/dns-query
-  nameserver:
-    - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
   nameserver-policy:
     "geosite:geolocation-!cn":
-      - https://dns.google/dns-query
-      - https://cloudflare-dns.com/dns-query
+      - https://doh.090227.xyz/Ali-query
+      - https://doh.cmliussss.com/CMLiussss
+      - https://doh.cmliussss.net/CMLiussss
     "geosite:cn":
-      - https://dns.alidns.com/dns-query
       - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
 # 策略组
 proxy-groups:
   - {name: 🚀 节点选择, type: select,no-resolve: true,proxies: [♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/select.png"}
