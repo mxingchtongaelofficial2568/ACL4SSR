@@ -67,8 +67,8 @@ dns:
   nameserver-policy:
     "geosite:geolocation-!cn":
       - https://doh.090227.xyz/Ali-query
-      - https://doh.cmliussss.com/CMLiussss
-      - https://doh.cmliussss.net/CMLiussss
+      - https://doh.090227.xyz/AdG-query
+      - https://dns.google/dns-query
     "geosite:cn":
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
@@ -88,9 +88,7 @@ proxy-groups:
   - {name: 🇲🇾 亚洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(马来|泰国|越南|VN|KR|Korea|KOR|首尔|韩|台|🇹🇼|TW|Taiwan|新|🇸🇬|SG|Singapore)"}
   - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
-  # 🟡 2. 局域网与私有网络 (防止内网 IP 和域名发生 DNS 泄露)
   - RULE-SET,private_domain,🎯 全球直连
-  # 🟢 3. 国内特色服务特判 (极其重要：国内直连特例，必须在广义规则之前！)
   - RULE-SET,steamcdn_domain,🎯 全球直连    # 保证 Steam 下载走国内 CDN
   - RULE-SET,microsoft_cn_domain,🎯 全球直连 # 保证微软国内服务不绕路
   - RULE-SET,games_cn_domain,🎯 全球直连
@@ -100,10 +98,9 @@ rules:
   - GEOSITE,GOOGLE,Google
   - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,proxy_domain,🚀 节点选择
-  - RULE-SET,google-cn,Google
-  - RULE-SET,google,Google,no-resolve
   - RULE-SET,youtube_domain,🚀 节点选择
   - RULE-SET,telegram_domain,🚀 节点选择
+  - RULE-SET,gfw_domain,🚀 节点选择
   - RULE-SET,Cloudflare_domain,🚀 节点选择,no-resolve
   - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT 
   - RULE-SET,ai_domain,💬 Ai平台
@@ -132,7 +129,6 @@ rule-providers:
   telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs" }
   games_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/games-cn.mrs" }
   steamcdn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/Domain/Steam-domain.mrs" }
-  steam_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/steam.mrs" }
   private_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/private.mrs" }
   microsoft_cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/microsoft-cn.mrs" }
   google: { <<: *ip, url: "https://github.com/Loyalsoldier/geoip/raw/refs/heads/release/mrs/google.mrs" }
@@ -144,8 +140,6 @@ rule-providers:
   cn_ip: { <<: *ip, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cnip.mrs" }
   private_ip: { <<: *ip, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/privateip.mrs" }
   steamcdn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/Lanlan13-14/Rules/refs/heads/main/rules/IP/steamCDN-ip.mrs" }
-  google-cn: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/google-cn.mrs" }
-  
 
 
 
