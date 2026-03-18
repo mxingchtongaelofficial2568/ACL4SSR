@@ -22,7 +22,6 @@ proxy-providers:
     proxy: "🚀 节点选择"
     override:
       additional-prefix: '[机场 1]'
-      skip-cert-verify: true
 
 # 全局配置
 mixed-port: 7890 
