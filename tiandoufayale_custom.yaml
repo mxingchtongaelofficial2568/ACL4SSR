@@ -66,6 +66,7 @@ dns:
     - https://dns.alidns.com/dns-query
   nameserver-policy:
     "geosite:geolocation-!cn":
+      - https://cloudflare-dns.com/dns-query
       - https://doh.090227.xyz/Ali-query
       - https://doh.090227.xyz/AdG-query
       - https://dns.google/dns-query
