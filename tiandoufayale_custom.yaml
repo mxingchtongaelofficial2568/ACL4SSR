@@ -106,8 +106,8 @@ rules:
   - RULE-SET,banad,广告拦截
   - RULE-SET,banad2,广告拦截
   - RULE-SET,private_domain,🎯 全球直连
-  - RULE-SET,steamcdn_domain,🎯 全球直连    # 保证 Steam 下载走国内 CDN
-  - RULE-SET,microsoft_cn_domain,🎯 全球直连 # 保证微软国内服务不绕路
+  - RULE-SET,steamcdn_domain,🎯 全球直连   
+  - RULE-SET,microsoft_cn_domain,🎯 全球直连 
   - RULE-SET,games_cn_domain,🎯 全球直连
   - RULE-SET,ai_cn_domain,🎯 全球直连
   - RULE-SET,fcm,🎯 全球直连
@@ -118,9 +118,10 @@ rules:
   - RULE-SET,youtube_domain,🚀 节点选择
   - RULE-SET,telegram_domain,🚀 节点选择
   - RULE-SET,gfw_domain,🚀 节点选择
+  - RULE-SET,tldproxy,🚀 节点选择
   - RULE-SET,Cloudflare_domain,🚀 节点选择,no-resolve
   - RULE-SET,cn_domain,🎯 全球直连
-  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT 
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
   - RULE-SET,ai_domain,💬 Ai平台
   - RULE-SET,openai_domain,💬 Ai平台
   - RULE-SET,telegram_ip,📲 电报消息,no-resolve
@@ -128,7 +129,6 @@ rules:
   - RULE-SET,private_ip,🎯 全球直连,no-resolve
   - RULE-SET,cn_ip,🎯 全球直连,no-resolve
   - RULE-SET,steamcdn_ip,🎯 全球直连,no-resolve
-  - GEOIP,CN,🎯 全球直连,no-resolve
   - MATCH,🐟 漏网之鱼
 
 # 规则集定义
@@ -160,28 +160,4 @@ rule-providers:
   fcm: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/googlefcm.mrs" }
   banad: { <<: *domain, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
   banad2: { <<: *domain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs" }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  tldproxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
