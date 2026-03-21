@@ -70,7 +70,7 @@ dns:
       - https://doh.090227.xyz/AdG-query
       - https://cloudflare-dns.com/dns-query
       - https://dns.google/dns-query
-    "geosite:cn,private":
+    "geosite:cn":
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
 fallback:
@@ -113,12 +113,12 @@ rules:
   - GEOSITE,GOOGLE-PLAY@CN,🎯 全球直连
   - RULE-SET,google,Google,no-resolve
   - GEOSITE,GOOGLE,Google
-  - RULE-SET,cn_domain,🎯 全球直连
   - RULE-SET,proxy_domain,🚀 节点选择
   - RULE-SET,youtube_domain,🚀 节点选择
   - RULE-SET,telegram_domain,🚀 节点选择
   - RULE-SET,gfw_domain,🚀 节点选择
   - RULE-SET,Cloudflare_domain,🚀 节点选择,no-resolve
+  - RULE-SET,cn_domain,🎯 全球直连
   - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT 
   - RULE-SET,ai_domain,💬 Ai平台
   - RULE-SET,openai_domain,💬 Ai平台
