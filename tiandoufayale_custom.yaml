@@ -66,19 +66,16 @@ dns:
     - https://dns.alidns.com/dns-query
   nameserver-policy:
     "geosite:gfw":
-      - https://doh.090227.xyz/Ali-query
-      - https://doh.090227.xyz/AdG-query
-      - https://cloudflare-dns.com/dns-query
       - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
     "geosite:cn":
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
 fallback:
+   - https://dns.google/dns-query
+   - https://cloudflare-dns.com/dns-query
    - https://doh.090227.xyz/Ali-query
    - https://doh.090227.xyz/AdG-query
-   - https://cloudflare-dns.com/dns-query
-   - https://dns.google/dns-query
-
 fallback-filter:
   geoip: true
   geoip-code: CN
