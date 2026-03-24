@@ -26,6 +26,7 @@ proxy-providers:
 # 全局配置
 mixed-port: 7890 
 tcp-concurrent: true
+geodata-loader: memconservative
 ipv6: true
 allow-lan: true
 unified-delay: true
