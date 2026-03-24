@@ -25,12 +25,28 @@ proxy-providers:
 
 # 全局配置
 mixed-port: 7890 
+tcp-concurrent: true
 ipv6: true
 allow-lan: true
 unified-delay: true
 profile:
   store-selected: true
   store-fake-ip: true
+sniffer:
+  enable: true
+  force-dns-mapping: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
 dns:
   enable: true
   listen: 127.0.0.1:1053
@@ -65,12 +81,15 @@ dns:
     - https://doh.pub/dns-query
     - https://dns.alidns.com/dns-query
   nameserver-policy:
-    "geosite:gfw":
-      - https://dns.google/dns-query
-      - https://cloudflare-dns.com/dns-query
-    "geosite:cn":
-      - https://doh.pub/dns-query
+    "rule-set:private_domain,cn_domain,microsoft_cn_domain,games_cn_domain,steamcdn_domain,fcm":
       - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    "geosite:google-play@cn,apple-cn,microsoft@cn,steam@cn,category-games@cn":
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    "geosite:gfw,google,telegram,openai":
+      - https://dns.google/dns-query#RULES
+      - https://cloudflare-dns.com/dns-query#RULES
 fallback:
    - https://dns.google/dns-query
    - https://cloudflare-dns.com/dns-query
@@ -101,29 +120,43 @@ proxy-groups:
   - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
   - RULE-SET,banad,广告拦截
+
   - RULE-SET,private_domain,🎯 全球直连
-  - RULE-SET,steamcdn_domain,🎯 全球直连   
-  - RULE-SET,microsoft_cn_domain,🎯 全球直连 
+  - RULE-SET,microsoft_cn_domain,🎯 全球直连
+  - RULE-SET,steamcdn_domain,🎯 全球直连
   - RULE-SET,games_cn_domain,🎯 全球直连
-  - RULE-SET,fcm,🎯 全球直连
+  - RULE-SET,apple_cn_domain,🎯 全球直连
+
+  - GEOSITE,PRIVATE,🎯 全球直连
   - GEOSITE,GOOGLE-PLAY@CN,🎯 全球直连
-  - GEOSITE,GOOGLE,Google
-  - RULE-SET,google,Google,no-resolve
-  - RULE-SET,proxy_domain,🚀 节点选择
-  - RULE-SET,youtube_domain,🚀 节点选择
-  - RULE-SET,telegram_domain,🚀 节点选择
-  - RULE-SET,gfw_domain,🚀 节点选择
-  - RULE-SET,cn_domain,🎯 全球直连
-  - RULE-SET,tldproxy,🚀 节点选择
-  - RULE-SET,Cloudflare_domain,🚀 节点选择,no-resolve
-  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+  - GEOSITE,APPLE-CN,🎯 全球直连
+  - GEOSITE,MICROSOFT@CN,🎯 全球直连
+  - GEOSITE,STEAM@CN,🎯 全球直连
+  - GEOSITE,CATEGORY-GAMES@CN,🎯 全球直连
+
   - RULE-SET,ai_domain,💬 Ai平台
   - RULE-SET,openai_domain,💬 Ai平台
+
+  - RULE-SET,telegram_domain,📲 电报消息
   - RULE-SET,telegram_ip,📲 电报消息,no-resolve
+
+  - GEOSITE,GOOGLE,Google
+  - RULE-SET,google,Google,no-resolve
+
+  - GEOSITE,GITHUB,🚀 节点选择
+  - RULE-SET,github_domain,🚀 节点选择
+
+  - RULE-SET,youtube_domain,🚀 节点选择
+  - RULE-SET,proxy_domain,🚀 节点选择
+  - RULE-SET,gfw_domain,🚀 节点选择
+  - RULE-SET,tldproxy,🚀 节点选择
+  - RULE-SET,cloudflare_ip,🚀 节点选择,no-resolve
   - RULE-SET,twitter_ip,🚀 节点选择,no-resolve
+
   - RULE-SET,private_ip,🎯 全球直连,no-resolve
   - RULE-SET,cn_ip,🎯 全球直连,no-resolve
   - RULE-SET,steamcdn_ip,🎯 全球直连,no-resolve
+
   - MATCH,🐟 漏网之鱼
 
 # 规则集定义
@@ -133,7 +166,7 @@ rule-anchor:
 
 rule-providers:
   fakeip_filter_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/fakeip-filter-lite.mrs" }
-  Cloudflare_domain: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs" }
+  Cloudflare_ip: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/cloudflare.mrs" }
   ai_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/ai.mrs" }
   youtube_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/youtube.mrs" }
   cn_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/cn.mrs" }
@@ -154,3 +187,4 @@ rule-providers:
   fcm: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/googlefcm.mrs" }
   banad: { <<: *domain, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
   tldproxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
+  github_domain: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs" }
