@@ -79,12 +79,7 @@ dns:
     "geosite:google-play@cn,apple-cn,microsoft@cn,steam@cn,category-games@cn":
       - https://dns.alidns.com/dns-query
       - https://doh.pub/dns-query
-    "geosite:gfw,google,telegram,openai":
-      - https://dns.google/dns-query#RULES
-      - https://cloudflare-dns.com/dns-query#RULES
-      - https://doh.090227.xyz/Ali-query
-      - https://doh.090227.xyz/AdG-query
-      "geosite:geolocation-!cn":
+    "geosite:gfw,google,github,telegram,openai":
       - https://dns.google/dns-query#RULES
       - https://cloudflare-dns.com/dns-query#RULES
       - https://doh.090227.xyz/Ali-query
