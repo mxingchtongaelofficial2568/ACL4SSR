@@ -125,11 +125,9 @@ rules:
   - RULE-SET,microsoft_cn_domain,🎯 全球直连
   - RULE-SET,steamcdn_domain,🎯 全球直连
   - RULE-SET,games_cn_domain,🎯 全球直连
-  - RULE-SET,apple_cn_domain,🎯 全球直连
 
   - GEOSITE,PRIVATE,🎯 全球直连
   - GEOSITE,GOOGLE-PLAY@CN,🎯 全球直连
-  - GEOSITE,APPLE-CN,🎯 全球直连
   - GEOSITE,MICROSOFT@CN,🎯 全球直连
   - GEOSITE,STEAM@CN,🎯 全球直连
   - GEOSITE,CATEGORY-GAMES@CN,🎯 全球直连
