@@ -63,15 +63,6 @@ dns:
   fake-ip-filter-mode: blacklist 
   fake-ip-filter:
     - "rule-set:fakeip_filter_domain,private_domain,cn_domain"
-    - +.lan
-    - +.local
-    - +.arpa
-    - +.internal
-    - +.localhost
-    - +.market.xiaomi.com
-    - time.*.com
-    - ntp.*.com
-    - +.stun.*.* 
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
@@ -91,9 +82,13 @@ dns:
     "geosite:gfw,google,telegram,openai":
       - https://dns.google/dns-query#RULES
       - https://cloudflare-dns.com/dns-query#RULES
+      - https://doh.090227.xyz/Ali-query
+      - https://doh.090227.xyz/AdG-query
       "geosite:geolocation-!cn":
       - https://dns.google/dns-query#RULES
       - https://cloudflare-dns.com/dns-query#RULES
+      - https://doh.090227.xyz/Ali-query
+      - https://doh.090227.xyz/AdG-query
 fallback:
    - https://dns.google/dns-query
    - https://cloudflare-dns.com/dns-query
