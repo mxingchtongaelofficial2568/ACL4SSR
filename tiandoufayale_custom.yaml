@@ -91,6 +91,9 @@ dns:
     "geosite:gfw,google,telegram,openai":
       - https://dns.google/dns-query#RULES
       - https://cloudflare-dns.com/dns-query#RULES
+      "geosite:geolocation-!cn":
+      - https://dns.google/dns-query#RULES
+      - https://cloudflare-dns.com/dns-query#RULES
 fallback:
    - https://dns.google/dns-query
    - https://cloudflare-dns.com/dns-query
