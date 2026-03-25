@@ -144,7 +144,8 @@ rules:
   - RULE-SET,tldproxy,🚀 节点选择
   - RULE-SET,Cloudflare_ip,🚀 节点选择,no-resolve
   - RULE-SET,twitter_ip,🚀 节点选择,no-resolve
-
+  - RULE-SET,cn_domain,🎯 全球直连
+  - DOMAIN-SUFFIX,modelscope.cn,🎯 全球直连
   - RULE-SET,private_ip,🎯 全球直连,no-resolve
   - RULE-SET,cn_ip,🎯 全球直连,no-resolve
   - RULE-SET,steamcdn_ip,🎯 全球直连,no-resolve
