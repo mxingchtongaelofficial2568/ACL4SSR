@@ -27,7 +27,7 @@ proxy-providers:
 mixed-port: 7890 
 tcp-concurrent: true
 geodata-loader: memconservative
-ipv6: true
+ipv6: false
 allow-lan: true
 unified-delay: true
 profile:
@@ -52,7 +52,7 @@ dns:
   enable: true
   listen: 127.0.0.1:1053
   cache-algorithm: arc
-  ipv6: true
+  ipv6: false
   prefer-h3: false 
   respect-rules: true
   use-hosts: true 
