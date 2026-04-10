@@ -30,21 +30,6 @@ unified-delay: true
 profile:
   store-selected: true
   store-fake-ip: true
-sniffer:
-  enable: true
-  force-dns-mapping: true
-  parse-pure-ip: true
-  override-destination: true
-  sniff:
-    HTTP:
-      ports: [80, 8080-8880]
-    TLS:
-      ports: [443, 8443]
-    QUIC:
-      ports: [443, 8443]
-  skip-domain:
-    - "Mijia Cloud"
-    - "+.push.apple.com"
 dns:
   enable: true
   listen: 127.0.0.1:1053
@@ -77,20 +62,16 @@ dns:
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
     "geosite:gfw,google,github,telegram,openai":
-      - https://doh.090227.xyz/Ali-query
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
-      - https://doh.090227.xyz/AdG-query
 fallback:
-   - https://doh.090227.xyz/Ali-query
    - https://dns.google/dns-query
    - https://cloudflare-dns.com/dns-query
-   - https://doh.090227.xyz/AdG-query
 fallback-filter:
   geoip: true
   geoip-code: CN
   geosite:
-    - gfw
+    - geolocation-!cn
   ipcidr:
     - 240.0.0.0/4
 # 策略组
