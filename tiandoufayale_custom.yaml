@@ -61,12 +61,16 @@ dns:
     "geosite:google-play@cn,apple-cn,microsoft@cn,steam@cn,category-games@cn":
       - https://doh.pub/dns-query
       - https://dns.alidns.com/dns-query
-    "geosite:gfw,google,github,telegram,openai":
-      - https://dns.google/dns-query
-      - https://cloudflare-dns.com/dns-query
+    "geosite:gfw,geolocation-!cn,google,github,telegram,openai":
+      - https://doh.090227.xyz/Ali-query
+      - https://doh.cmliussss.com/CMLiussss
+      - https://doh.cmliussss.net/CMLiussss
+      - https://doh.090227.xyz/AdG-query
 fallback:
-   - https://dns.google/dns-query
-   - https://cloudflare-dns.com/dns-query
+      - https://doh.090227.xyz/Ali-query
+      - https://doh.cmliussss.com/CMLiussss
+      - https://doh.cmliussss.net/CMLiussss
+      - https://doh.090227.xyz/AdG-query
 fallback-filter:
   geoip: true
   geoip-code: CN
