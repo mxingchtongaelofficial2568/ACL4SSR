@@ -76,6 +76,7 @@ fallback-filter:
   geoip-code: CN
   geosite:
     - geolocation-!cn
+    - gfw
   ipcidr:
     - 240.0.0.0/4
 # 策略组
