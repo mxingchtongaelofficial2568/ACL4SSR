@@ -44,7 +44,9 @@ dns:
   fake-ip-range6: fdfe:dcba:9876::1/64
   fake-ip-filter-mode: blacklist 
   fake-ip-filter:
-    - "rule-set:fakeip_filter_domain,private_domain,cn_domain"
+    - "rule-set:fakeip_filter_domain"
+    - "rule-set:private_domain"
+    - "rule-set:cn_domain"
   default-nameserver:
     - 119.29.29.29
     - 223.5.5.5
@@ -66,18 +68,18 @@ dns:
       - https://doh.cmliussss.com/CMLiussss
       - https://doh.cmliussss.net/CMLiussss
       - https://doh.090227.xyz/AdG-query
-fallback:
+  fallback:
       - https://doh.090227.xyz/Ali-query
       - https://doh.cmliussss.com/CMLiussss
       - https://doh.cmliussss.net/CMLiussss
       - https://doh.090227.xyz/AdG-query
-fallback-filter:
-  geoip: true
-  geoip-code: CN
-  geosite:
-    - geolocation-!cn
-    - gfw
-  ipcidr:
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - geolocation-!cn
+      - gfw
+    ipcidr:
     - 240.0.0.0/4
 # 策略组
 proxy-groups:
@@ -138,7 +140,6 @@ rules:
   - RULE-SET,tldproxy,🚀 节点选择
   - RULE-SET,Cloudflare_ip,🚀 节点选择,no-resolve
   - RULE-SET,twitter_ip,🚀 节点选择,no-resolve
-  - AND,((NETWORK,udp),(DST-PORT,443)),REJECT
   - RULE-SET,ai_domain,💬 Ai平台
   - RULE-SET,openai_domain,💬 Ai平台
   - RULE-SET,cn_domain,🎯 全球直连
