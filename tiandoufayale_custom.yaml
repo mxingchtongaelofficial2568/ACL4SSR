@@ -53,6 +53,8 @@ dns:
 # 代理服务器域名的解析，必须走国内 DNS 确保能连上节点
   proxy-server-nameserver:
     - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+    - https://doh.cmliussss.com/CMLiussss
   nameserver:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
