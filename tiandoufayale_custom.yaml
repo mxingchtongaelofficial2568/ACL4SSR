@@ -48,33 +48,24 @@ dns:
     - "rule-set:private_domain"
     - "rule-set:cn_domain"
   default-nameserver:
-    - 119.29.29.29
     - 223.5.5.5
 # 代理服务器域名的解析，必须走国内 DNS 确保能连上节点
   proxy-server-nameserver:
     - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
-    - https://doh.cmliussss.com/CMLiussss
+    - https://dns.xingtong2568.cc.cd/dns-query
   nameserver:
     - https://dns.alidns.com/dns-query
-    - https://doh.pub/dns-query
   nameserver-policy:
     "rule-set:private_domain,cn_domain,microsoft_cn_domain,games_cn_domain,steamcdn_domain,fcm":
       - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
     "geosite:google-play@cn,apple-cn,microsoft@cn,steam@cn,category-games@cn":
       - https://dns.alidns.com/dns-query
-      - https://doh.pub/dns-query
     "geosite:gfw,geolocation-!cn,google,github,telegram,openai":
-      - https://doh.090227.xyz/Ali-query
-      - https://doh.cmliussss.com/CMLiussss
-      - https://doh.cmliussss.net/CMLiussss
-      - https://doh.090227.xyz/AdG-query
+      - https://dns.xingtong2568.cc.cd/dns-query
+      - https://dns.google/dns-query
   fallback:
-      - https://doh.090227.xyz/Ali-query
-      - https://doh.cmliussss.com/CMLiussss
-      - https://doh.cmliussss.net/CMLiussss
-      - https://doh.090227.xyz/AdG-query
+      - https://dns.xingtong2568.cc.cd/dns-query
+      - https://dns.google/dns-query
   fallback-filter:
     geoip: true
     geoip-code: CN
