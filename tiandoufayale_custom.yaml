@@ -52,7 +52,6 @@ dns:
 # 代理服务器域名的解析，必须走国内 DNS 确保能连上节点
   proxy-server-nameserver:
     - https://dns.alidns.com/dns-query
-    - https://dns.xingtong2568.cc.cd/dns-query
   nameserver:
     - https://dns.alidns.com/dns-query
   nameserver-policy:
@@ -61,10 +60,10 @@ dns:
     "geosite:google-play@cn,apple-cn,microsoft@cn,steam@cn,category-games@cn":
       - https://dns.alidns.com/dns-query
     "geosite:gfw,geolocation-!cn,google,github,telegram,openai":
-      - https://dns.xingtong2568.cc.cd/dns-query
+      - https://domain.xingtong2568.cc.cd/query
       - https://dns.google/dns-query
   fallback:
-      - https://dns.xingtong2568.cc.cd/dns-query
+      - https://domain.xingtong2568.cc.cd/query
       - https://dns.google/dns-query
   fallback-filter:
     geoip: true
