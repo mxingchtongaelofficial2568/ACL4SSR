@@ -60,10 +60,12 @@ dns:
     "geosite:google-play@cn,apple-cn,microsoft@cn,steam@cn,category-games@cn":
       - https://dns.alidns.com/dns-query
     "geosite:gfw,geolocation-!cn,google,github,telegram,openai":
+      - https://xy5dhsqivy.cloudflare-gateway.com/dns-query
       - https://domain.xingtong2568.cc.cd/query
       - https://dns.google/dns-query
   fallback:
       - https://domain.xingtong2568.cc.cd/query
+      - https://xy5dhsqivy.cloudflare-gateway.com/dns-query
       - https://dns.google/dns-query
   fallback-filter:
     geoip: true
