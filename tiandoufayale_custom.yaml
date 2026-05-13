@@ -76,19 +76,19 @@ dns:
     ipcidr:
     - 240.0.0.0/4
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, no-resolve: true, proxies: [♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/select.png"}
+  - {name: 🚀 节点选择, type: select, no-resolve: true, proxies: [♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🇲🇾 新加坡节点, 🚀 手动切换, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/select.png"}
 
-  - {name: 📲 电报消息, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, ♻️ 自动选择, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/telegram.png"}
+  - {name: 📲 电报消息, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🇲🇾 新加坡节点, ♻️ 自动选择, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/telegram.png"}
 
-  - {name: 💬 Ai平台, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/ai.png"}
+  - {name: 💬 Ai平台, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🇲🇾 新加坡节点, 🚀 手动切换], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/ai.png"}
 
-  - {name: Google, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🚀 手动切换]}
+  - {name: Google, type: select, proxies: [🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🇲🇾 新加坡节点, 🚀 手动切换]}
 
   - {name: 🎯 全球直连, type: select, proxies: [DIRECT, ♻️ 自动选择], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/direct.png"}
 
   - {name: 广告拦截, type: select, proxies: [REJECT]}
 
-  - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, ♻️ 自动选择, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/final.png"}
+  - {name: 🐟 漏网之鱼, type: select, proxies: [🚀 节点选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇲🇾 亚洲节点, 🇪🇺 欧洲节点, 🇲🇾 新加坡节点, ♻️ 自动选择, 🎯 全球直连], icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/final.png"}
 
   - {name: 🚀 手动切换, type: select, include-all: true}
 
@@ -100,7 +100,8 @@ proxy-groups:
 
   - {name: 🇺🇲 美国节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(美国|美|🇺🇲|🇺🇸|US|America|United States)", icon: "https://pub-8feead0908f649a8b94397f152fb9cba.r2.dev/America.png"}
 
-  - {name: 🇲🇾 亚洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(马来|泰国|越南|VN|KR|Korea|KOR|首尔|韩|台|🇹🇼|TW|Taiwan|新|🇸🇬|SG|Singapore)"}
+  - {name: 🇲🇾 亚洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(马来|泰国|越南|VN|KR|Korea|KOR|首尔|韩|台|🇹🇼|TW|Taiwan)"}
+  - {name: 🇲🇾 新加坡节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(新|🇸🇬|SG|Singapore)"}
 
   - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
