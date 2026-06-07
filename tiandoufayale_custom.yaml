@@ -104,7 +104,7 @@ proxy-groups:
   - {name: 🇪🇺 欧洲节点, <<: *Urltest_Base, include-all: true, filter: "(?i)(英国|德国|卢森堡|法国|俄罗斯|France|Deutschland|United Kingdom|Italy|Netherland)"}
 rules:
   - RULE-SET,banad,广告拦截
-
+  - RULE-SET,ads,广告拦截
   - RULE-SET,private_domain,🎯 全球直连
   - RULE-SET,microsoft_cn_domain,🎯 全球直连
   - RULE-SET,steamcdn_domain,🎯 全球直连
@@ -115,7 +115,8 @@ rules:
   - GEOSITE,MICROSOFT@CN,🎯 全球直连
   - GEOSITE,STEAM@CN,🎯 全球直连
   - GEOSITE,CATEGORY-GAMES@CN,🎯 全球直连
-  - GEOSITE,apple-cn,🎯 全球直连
+  - RULE-SET,apple_domain,🎯 全球直连
+  
 
 
   - RULE-SET,telegram_domain,📲 电报消息
@@ -172,3 +173,5 @@ rule-providers:
   banad: { <<: *domain, url: "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Clash.mrs" }
   tldproxy: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/tld-proxy.mrs" }
   github_domain: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/github.mrs" }
+  apple_domain: { <<: *domain, url: "https://github.com/DustinWin/ruleset_geodata/releases/download/mihomo-ruleset/apple-cn.mrs" }
+  ads: { <<: *domain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs" }
