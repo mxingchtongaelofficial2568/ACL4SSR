@@ -115,6 +115,7 @@ rules:
   - GEOSITE,MICROSOFT@CN,🎯 全球直连
   - GEOSITE,STEAM@CN,🎯 全球直连
   - GEOSITE,CATEGORY-GAMES@CN,🎯 全球直连
+  - GEOSITE,apple-cn,🎯 全球直连
 
 
   - RULE-SET,telegram_domain,📲 电报消息
